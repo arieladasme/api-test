@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
-import { map } from 'rxjs';
+import { lastValueFrom, map } from 'rxjs';
 import 'dotenv/config.js';
 import { CreateLunarcrushDto } from './dto/create-lunarcrush.dto';
 import { UpdateLunarcrushDto } from './dto/update-lunarcrush.dto';
@@ -19,11 +19,14 @@ export class LunarcrushService {
 
   async getBitcoinPrice() {
     const url = `https://lunarcrush.com/api3/coins/list`;
-    const response = await this.httpService
-      .get(url, {
-        headers: headersRequest,
-      })
-      .pipe(map((response) => response.data));
+    const response = await lastValueFrom(
+      this.httpService
+        .get(url, {
+          headers: headersRequest,
+        })
+        .pipe(map((response) => response.data)),
+    );
+    console.log(response);
     return response;
   }
 
