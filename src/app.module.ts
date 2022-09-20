@@ -4,6 +4,7 @@ import 'dotenv/config.js';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { LunarcrushModule } from './config/api/lunarcrush/lunarcrush.module';
+import { CoinsModule } from './coins/coins.module';
 
 const { DB_HOST, DB_PORT, DB_USERNAME, DB_PASSWORD, DB_DATABASE } = process.env;
 
@@ -20,6 +21,7 @@ const { DB_HOST, DB_PORT, DB_USERNAME, DB_PASSWORD, DB_DATABASE } = process.env;
       synchronize: true,
     }),
     LunarcrushModule,
+    CoinsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
