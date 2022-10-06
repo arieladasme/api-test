@@ -20,8 +20,8 @@ export class CoinService {
     return await this.coinRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} coin`;
+  async findOne(id: number) {
+    return await this.coinRepository.findOne({ where: { ID_COIN: id } });
   }
 
   update(id: number, updateCoinDto: UpdateCoinDto) {
