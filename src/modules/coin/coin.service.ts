@@ -1,15 +1,23 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateCoinDto } from './dto/create-coin.dto';
 import { UpdateCoinDto } from './dto/update-coin.dto';
+import { CoinEntity } from './entities/coin.entity';
 
 @Injectable()
-export class CoinsService {
+export class CoinService {
+  constructor(
+    @InjectRepository(CoinEntity)
+    private coinRepository: Repository<CoinEntity>,
+  ) {}
+
   create(createCoinDto: CreateCoinDto) {
     return 'This action adds a new coin';
   }
 
-  findAll() {
-    return `This action returns all coins`;
+  async findAll() {
+    return await this.coinRepository.find();
   }
 
   findOne(id: number) {

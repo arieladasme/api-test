@@ -2,11 +2,11 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { LunarcrushModule } from './config/api/lunarcrush/lunarcrush.module';
-import { CoinsModule } from './coins/coins.module';
+import { CoinModule } from './modules/coin/coin.module';
 import { DatabaseModule } from './database/database.module';
 
 @Module({
-  imports: [LunarcrushModule, CoinsModule, DatabaseModule],
+  imports: [LunarcrushModule, CoinModule, DatabaseModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -12,7 +12,7 @@ import { ApiHeader } from '@nestjs/swagger';
 export class LunarcrushController {
   constructor(private readonly lunarcrushService: LunarcrushService) {}
 
-  @Get('coins')
+  @Get('coin')
   getBitcoinPrice() {
     return this.lunarcrushService.getBitcoinPrice();
   }

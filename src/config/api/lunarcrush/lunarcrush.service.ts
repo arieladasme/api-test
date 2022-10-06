@@ -18,7 +18,7 @@ export class LunarcrushService {
   }
 
   async getBitcoinPrice() {
-    const url = `https://lunarcrush.com/api3/coins/list`;
+    const url = `https://lunarcrush.com/api3/coin/list`;
     const response = await lastValueFrom(
       this.httpService
         .get(url, {
@@ -26,7 +26,6 @@ export class LunarcrushService {
         })
         .pipe(map((response) => response.data)),
     );
-    console.log(response);
     return response;
   }
 
