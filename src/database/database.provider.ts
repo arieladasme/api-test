@@ -11,7 +11,10 @@ export const DatabaseProvider = [
     port: +DB_PORT,
     database: DB_DATABASE,
     synchronize: true,
-    entities: [__dirname + '../../modules/**/*.entity{.ts,.js}'],
+    entities: [
+      __dirname + '../../modules/**/*.entity{.ts,.js}',
+      __dirname + '../../config/api/**/*.entity{.ts,.js}',
+    ],
     migrations: [__dirname + '../migrations/*{.ts,.js}'],
   }),
 ];
