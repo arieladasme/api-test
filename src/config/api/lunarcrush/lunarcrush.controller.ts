@@ -1,7 +1,7 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { LunarcrushService } from './lunarcrush.service';
-import { CreateLunarcrushDto } from './dto/create-lunarcrush.dto';
-import { UpdateLunarcrushDto } from './dto/update-lunarcrush.dto';
+//import { CreateLunarcrushDto } from './dto/create-lunarcrush.dto';
+//import { UpdateLunarcrushDto } from './dto/update-lunarcrush.dto';
 import { ApiHeader } from '@nestjs/swagger';
 
 @ApiHeader({
@@ -15,6 +15,11 @@ export class LunarcrushController {
   @Get('coin')
   getBitcoinPrice() {
     return this.lunarcrushService.getBitcoinPrice();
+  }
+
+  @Get('meta/:id')
+  getMetaByCoin(@Param('id') id: string) {
+    return this.lunarcrushService.getMetaByCoin(id);
   }
 
   /*  @Get()
