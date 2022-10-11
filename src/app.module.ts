@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { LunarcrushModule } from './config/api/lunarcrush/lunarcrush.module';
 import { CoinModule } from './modules/coin/coin.module';
 import { DatabaseModule } from './database/database.module';
+import { CryptocompareModule } from './config/api/cryptocompare/cryptocompare.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { DatabaseModule } from './database/database.module';
     LunarcrushModule,
     CoinModule,
     DatabaseModule,
+    CryptocompareModule,
   ],
   controllers: [AppController],
   providers: [AppService],
