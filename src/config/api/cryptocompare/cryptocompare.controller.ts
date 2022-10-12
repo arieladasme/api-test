@@ -1,5 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { CryptocompareService } from './cryptocompare.service';
+import { Cron, CronExpression } from '@nestjs/schedule';
 //import { CreateCryptocompareDto } from './dto/create-cryptocompare.dto';
 //import { UpdateCryptocompareDto } from './dto/update-cryptocompare.dto';
 
@@ -7,8 +8,10 @@ import { CryptocompareService } from './cryptocompare.service';
 export class CryptocompareController {
   constructor(private readonly cryptocompareService: CryptocompareService) {}
 
+  @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
   @Get('market-coin')
   GetPriceByCoin() {
+    console.log('run market-coin');
     return this.cryptocompareService.GetPriceByCoin('BTC');
   }
   /* 
