@@ -1,8 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { lastValueFrom, map } from 'rxjs';
-import { CreateCryptocompareDto } from './dto/create-cryptocompare.dto';
-import { UpdateCryptocompareDto } from './dto/update-cryptocompare.dto';
+import { CryptocompareEntity } from './entities/cryptocompare.entity';
+//import { CreateCryptocompareDto } from './dto/create-cryptocompare.dto';
+//import { UpdateCryptocompareDto } from './dto/update-cryptocompare.dto';
 
 const headersRequest = {
   'Content-Type': 'application/json',
@@ -11,11 +14,12 @@ const headersRequest = {
 
 @Injectable()
 export class CryptocompareService {
-  constructor(private httpService: HttpService) {}
+  constructor(
+    private httpService: HttpService,
 
-  create(createCryptocompareDto: CreateCryptocompareDto) {
-    return 'This action adds a new cryptocompare';
-  }
+    @InjectRepository(CryptocompareEntity)
+    private metaRepository: Repository<CryptocompareEntity>,
+  ) {}
 
   async GetPriceByCoin(coin) {
     const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${coin}&tsyms=USD`;
@@ -26,10 +30,38 @@ export class CryptocompareService {
         })
         .pipe(map((response) => response.data)),
     );
+
+    const {
+      FROMSYMBOL,
+      PRICE,
+      LASTUPDATE,
+      VOLUMEDAY,
+      VOLUME24HOUR,
+      OPENDAY,
+      CHANGE24HOUR,
+      CHANGEDAY,
+      SUPPLY,
+      MKTCAP,
+    } = response.RAW.BTC.USD;
+
+    const meta = this.metaRepository.create({
+      ID_COIN: FROMSYMBOL,
+      PRICE,
+      LASTUPDATE,
+      VOLUMEDAY,
+      VOLUME24HOUR,
+      OPENDAY,
+      CHANGE24HOUR,
+      CHANGEDAY,
+      SUPPLY,
+      MKTCAP,
+    });
+    await this.metaRepository.save(meta);
+
     return response;
   }
 
-  findOne(id: number) {
+  /*  findOne(id: number) {
     return `This action returns a #${id} cryptocompare`;
   }
 
@@ -40,4 +72,8 @@ export class CryptocompareService {
   remove(id: number) {
     return `This action removes a #${id} cryptocompare`;
   }
+
+  create(createCryptocompareDto: CreateCryptocompareDto) {
+    return 'This action adds a new cryptocompare';
+  } */
 }
